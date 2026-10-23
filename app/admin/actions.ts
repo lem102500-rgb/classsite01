@@ -3,7 +3,8 @@
 /* 관리자 페이지의 버튼들이 실제로 하는 일 (서버에서 실행됨)
    - login / logout      : 로그인, 로그아웃
    - saveItem            : 카드 추가 또는 수정 (이미지 업로드 포함)
-   - deleteItem          : 카드 삭제 */
+   - deleteItem          : 카드 삭제
+   - saveHeroTexts       : 히어로(첫 화면) 글자 저장 */
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -11,6 +12,7 @@ import { redirect } from "next/navigation";
 import { siteConfig } from "@/site.config";
 import { checkPassword, endAdminSession, isAdmin, startAdminSession } from "@/lib/admin-auth";
 import { getAdminClient, IMAGE_BUCKET } from "@/lib/supabase-admin";
+import { heroTextFields } from "@/lib/data";
 
 export type ActionState = { ok?: boolean; message?: string };
 
@@ -90,6 +92,37 @@ export async function saveItem(_prev: ActionState, formData: FormData): Promise<
   revalidatePath("/");
   revalidatePath("/admin");
   return { ok: true, message: id ? "수정했습니다." : "추가했습니다." };
+}
+
+/* ---------- 히어로 글자 저장 ---------- */
+
+export async function saveHeroTexts(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  if (!(await isAdmin())) return { message: "로그인이 필요합니다. 새로고침 후 다시 로그인하세요." };
+
+  const supabase = getAdminClient();
+  if (!supabase) return { message: "Supabase가 연결되지 않았습니다. .env.local 을 확인하세요." };
+
+  // 빈 칸은 저장하지 않고 지움 → site.config.ts 의 원래 글자로 돌아감
+  const toSave: { key: string; value: string; updated_at: string }[] = [];
+  const toClear: string[] = [];
+  for (const field of heroTextFields) {
+    const value = String(formData.get(field.key) ?? "").replace(/\r\n/g, "\n").trim();
+    if (value) toSave.push({ key: field.key, value, updated_at: new Date().toISOString() });
+    else toClear.push(field.key);
+  }
+
+  if (toSave.length > 0) {
+    const { error } = await supabase.from("site_texts").upsert(toSave);
+    if (error) return { message: `저장 실패: ${error.message}` };
+  }
+  if (toClear.length > 0) {
+    const { error } = await supabase.from("site_texts").delete().in("key", toClear);
+    if (error) return { message: `저장 실패: ${error.message}` };
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+  return { ok: true, message: "저장했습니다." };
 }
 
 /* ---------- 카드 삭제 ---------- */
