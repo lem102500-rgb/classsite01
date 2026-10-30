@@ -5,6 +5,11 @@ import { siteConfig } from "@/site.config";
 import { getHeroTexts } from "@/lib/data";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
+import { Typewriter } from "@/components/ui/typewriter";
+
+// 타이핑 속도(한 글자 간격, 밀리초)와 시작 전 기다림
+const TITLE_SPEED = 85;
+const TITLE_DELAY = 300;
 
 /* 프로필 첫 화면 — 왼쪽 큰 제목 + 오른쪽 배경에 녹아든 일러스트(알약 태그).
    - 글자: 관리자 페이지 '히어로 글자' 탭 (비어 있으면 site.config.ts 의 hero)
@@ -26,11 +31,17 @@ export async function ProfileHero() {
             {texts["hero.eyebrow"]}
           </p>
           <h1 className="mt-6 whitespace-pre-line text-4xl font-bold leading-[1.18] tracking-tight sm:text-5xl lg:text-[3.4rem]">
-            {texts["hero.title"]}
+            {/* 제목을 한 글자씩 타이핑 → 끝나면 부제가 이어서 타이핑됨 */}
+            <Typewriter text={texts["hero.title"]} speed={TITLE_SPEED} delay={TITLE_DELAY} />
           </h1>
           {/* 한 줄 부제: 왼쪽 연두 선으로 수채화 붓 자국 느낌 */}
           <p className="mt-7 max-w-md border-l-4 border-brand pl-4 text-lg leading-relaxed text-foreground/70 sm:text-xl">
-            {texts["hero.description"]}
+            <Typewriter
+              text={texts["hero.description"]}
+              speed={55}
+              delay={TITLE_DELAY + Array.from(texts["hero.title"]).length * TITLE_SPEED + 350}
+              keepCursor
+            />
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Button asChild variant="brand" size="lg" className="pr-2">

@@ -113,9 +113,18 @@
   --font-display: var(--font-display);
 }
 
-/* 움직임(애니메이션) — animate-dance: 글자가 통통 튀며 좌우로 흔들림 */
+/* 움직임(애니메이션)
+   - animate-dance: 글자가 통통 튀며 좌우로 흔들림
+   - animate-blink: 타이핑 커서 깜빡임 */
 @theme {
   --animate-dance: dance 1.2s ease-in-out infinite;
+  --animate-blink: blink 1s step-end infinite;
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
 
   @keyframes dance {
     0%,
