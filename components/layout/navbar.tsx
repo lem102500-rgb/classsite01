@@ -14,24 +14,10 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur">
       <Container className="flex h-16 items-center justify-between gap-4">
-        {/* 로고: 반짝이 아이콘 + 한 글자씩 차례로 춤추는 글자 (움직임 줄이기 설정을 켠 사람에게는 멈춰 보임) */}
-        <Link
-          href="/"
-          className="flex shrink-0 items-center gap-2 text-lg font-bold tracking-tight"
-          aria-label={siteConfig.name}
-        >
+        {/* 로고: 반짝이 아이콘 + 이름 (춤추는 효과를 다시 넣으려면 글자마다 animate-dance 를 붙이면 됨) */}
+        <Link href="/" className="flex shrink-0 items-center gap-2 text-lg font-bold tracking-tight">
           <Sparkles className="size-5" strokeWidth={1.75} />
-          <span aria-hidden>
-            {Array.from(siteConfig.name).map((char, i) => (
-              <span
-                key={i}
-                className="inline-block motion-safe:animate-dance"
-                style={{ animationDelay: `${i * 0.1}s` }}
-              >
-                {char}
-              </span>
-            ))}
-          </span>
+          {siteConfig.name}
         </Link>
 
         <nav className="flex items-center gap-4 text-sm sm:gap-6 sm:text-base">
