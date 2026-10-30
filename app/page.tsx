@@ -1,7 +1,9 @@
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { Hero } from "@/components/sections/hero";
-import { About } from "@/components/sections/about";
+import { ProfileHero } from "@/components/sections/profile-hero";
+import { Partners } from "@/components/sections/partners";
+import { AboutProfile } from "@/components/sections/about-profile";
+import { Highlights } from "@/components/sections/highlights";
 import { Features } from "@/components/sections/features";
 import { Contact } from "@/components/sections/contact";
 
@@ -18,8 +20,11 @@ export default function HomePage() {
     <>
       <Navbar />
       <main className="flex-1">
-        <Hero />
-        <About />
+        {/* 예전 디자인으로 돌아가려면: <Hero /> <About /> 로 바꾸고 위 import 도 되돌리기 */}
+        <ProfileHero />
+        <Partners />
+        <AboutProfile />
+        <Highlights />
         <Features />
         <Contact />
       </main>

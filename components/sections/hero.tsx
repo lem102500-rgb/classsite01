@@ -4,6 +4,8 @@ import { siteConfig } from "@/site.config";
 import { getHeroTexts } from "@/lib/data";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
+import { AnalogClock } from "@/components/ui/analog-clock";
+import { Weather } from "@/components/ui/weather";
 
 /* 첫 화면(히어로).
    - 글자는 site.config.ts 의 hero 에서 바꿉니다.
@@ -15,26 +17,34 @@ export async function Hero() {
 
   return (
     <section id="top" className="relative overflow-hidden">
-      <Container className="flex min-h-[80svh] flex-col justify-center py-24">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
-          {texts["hero.eyebrow"]}
-        </p>
-        <h1 className="mt-5 max-w-4xl whitespace-pre-line text-5xl font-semibold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl">
-          {texts["hero.title"]}
-        </h1>
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-          {texts["hero.description"]}
-        </p>
-        <div className="mt-10 flex flex-wrap gap-3">
-          <Button asChild size="lg">
-            <a href={hero.primaryCta.href}>
-              {texts["hero.primaryCta"]}
-              <ArrowRight />
-            </a>
-          </Button>
-          <Button asChild size="lg" variant="outline">
-            <a href={hero.secondaryCta.href}>{texts["hero.secondaryCta"]}</a>
-          </Button>
+      {/* 데스크톱: 왼쪽 글자 + 오른쪽 시계 / 모바일: 글자 아래에 시계 */}
+      <Container className="flex min-h-[80svh] flex-col justify-center gap-14 py-24 lg:flex-row lg:items-center lg:justify-between">
+        <div className="min-w-0">
+          <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
+            {texts["hero.eyebrow"]}
+          </p>
+          <h1 className="mt-5 max-w-4xl whitespace-pre-line text-5xl font-semibold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl">
+            {texts["hero.title"]}
+          </h1>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
+            {texts["hero.description"]}
+          </p>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Button asChild size="lg">
+              <a href={hero.primaryCta.href}>
+                {texts["hero.primaryCta"]}
+                <ArrowRight />
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <a href={hero.secondaryCta.href}>{texts["hero.secondaryCta"]}</a>
+            </Button>
+          </div>
+        </div>
+        {/* 오른쪽: 시계 + 날씨 */}
+        <div className="flex shrink-0 flex-col items-center gap-6 self-center">
+          <AnalogClock className="w-48 sm:w-56 lg:w-72" />
+          <Weather {...siteConfig.weather} className="w-full max-w-72" />
         </div>
       </Container>
     </section>

@@ -1,78 +1,56 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 import { siteConfig } from "@/site.config";
 import { Container } from "@/components/layout/container";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
-/** 상단 메뉴. 메뉴 항목은 site.config.ts 의 nav 에서 바꿉니다. 모바일에서는 햄버거 버튼으로 열림. */
+/** 상단 메뉴. 메뉴 항목은 site.config.ts 의 nav, 맨 오른쪽 관리자 메뉴는 secretButton 에서 바꿉니다.
+    메뉴가 3개뿐이라 휴대폰에서도 한 줄로 그대로 보여줍니다. */
 export function Navbar() {
-  const [open, setOpen] = useState(false);
+  const linkClass = "text-foreground/80 transition-colors hover:text-foreground";
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur">
-      <Container className="flex h-16 items-center justify-between">
-        <Link href="/" className="text-lg font-semibold tracking-tight">
-          {siteConfig.name}
+      <Container className="flex h-16 items-center justify-between gap-4">
+        {/* 로고: 반짝이 아이콘 + 한 글자씩 차례로 춤추는 글자 (움직임 줄이기 설정을 켠 사람에게는 멈춰 보임) */}
+        <Link
+          href="/"
+          className="flex shrink-0 items-center gap-2 text-lg font-bold tracking-tight"
+          aria-label={siteConfig.name}
+        >
+          <Sparkles className="size-5" strokeWidth={1.75} />
+          <span aria-hidden>
+            {Array.from(siteConfig.name).map((char, i) => (
+              <span
+                key={i}
+                className="inline-block motion-safe:animate-dance"
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
+                {char}
+              </span>
+            ))}
+          </span>
         </Link>
 
-        {/* 데스크톱 메뉴 */}
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="flex items-center gap-4 text-sm sm:gap-6 sm:text-base">
           {siteConfig.nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
+            <a key={item.href} href={item.href} className={linkClass}>
               {item.label}
             </a>
           ))}
-          <Button asChild size="sm">
-            <a href={siteConfig.secretButton.href} target="_blank" rel="noopener noreferrer">
-              {siteConfig.secretButton.label}
-            </a>
-          </Button>
-        </nav>
-
-        {/* 모바일 메뉴 버튼 */}
-        <button
-          type="button"
-          className="inline-flex size-10 items-center justify-center rounded-full md:hidden"
-          aria-label={open ? "메뉴 닫기" : "메뉴 열기"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
-      </Container>
-
-      {/* 모바일 메뉴 펼침 */}
-      <nav className={cn("border-t border-border/60 md:hidden", open ? "block" : "hidden")}>
-        <Container className="flex flex-col py-2">
-          {siteConfig.nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="py-3 text-base text-muted-foreground hover:text-foreground"
-            >
-              {item.label}
-            </a>
-          ))}
+          {/* 관리자 페이지(비밀 공간)를 새 탭에서 열기 */}
           <a
             href={siteConfig.secretButton.href}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => setOpen(false)}
-            className="py-3 text-base font-medium text-foreground"
+            className={linkClass}
           >
             {siteConfig.secretButton.label}
           </a>
-        </Container>
-      </nav>
+        </nav>
+      </Container>
     </header>
   );
 }

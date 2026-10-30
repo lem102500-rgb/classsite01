@@ -21,33 +21,38 @@
    색은 #9a0002 같은 HEX 값으로 바꿔도 됩니다.
    ========================================================================== */
 :root {
-  --radius: 0.75rem;
+  --radius: 1.25rem;
 
-  --background: #ffffff;
-  --foreground: #111111;
+  /* 수채화 일러스트에 맞춘 따뜻한 종이 느낌 */
+  --background: #faf8f3;
+  --foreground: #23211d;
 
-  --card: #ffffff;
-  --card-foreground: #111111;
-  --popover: #ffffff;
-  --popover-foreground: #111111;
+  --card: #fffdf8;
+  --card-foreground: #23211d;
+  --popover: #fffdf8;
+  --popover-foreground: #23211d;
 
-  --primary: #111111;
-  --primary-foreground: #ffffff;
+  --primary: #2b2925;
+  --primary-foreground: #faf8f3;
 
-  --secondary: #f4f4f5;
-  --secondary-foreground: #111111;
+  --secondary: #f1eee6;
+  --secondary-foreground: #23211d;
 
-  --muted: #f4f4f5;
-  --muted-foreground: #6b6b6b;
+  --muted: #f1eee6;
+  --muted-foreground: #6f6a60;
 
-  --accent: #f4f4f5;
-  --accent-foreground: #111111;
+  --accent: #f1eee6;
+  --accent-foreground: #23211d;
+
+  /* 브랜드 강조색 (일러스트의 연두 물감 느낌) — 연두 카드, 강조 버튼 */
+  --brand: #e3ec8c;
+  --brand-foreground: #23211d;
 
   --destructive: #dc2626;
 
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --ring: #a3a3a3;
+  --border: #e6e1d5;
+  --input: #e6e1d5;
+  --ring: #b5ae9f;
 
   /* 폰트 */
   --font-body: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -71,6 +76,8 @@
   --accent: #1f1f1f;
   --accent-foreground: #fafafa;
   --destructive: #ef4444;
+  --brand: #d9e64a;
+  --brand-foreground: #0a0a0a;
   --border: #2a2a2a;
   --input: #2a2a2a;
   --ring: #525252;
@@ -93,6 +100,8 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -102,6 +111,27 @@
   --radius-xl: calc(var(--radius) + 4px);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
+}
+
+/* 움직임(애니메이션) — animate-dance: 글자가 통통 튀며 좌우로 흔들림 */
+@theme {
+  --animate-dance: dance 1.2s ease-in-out infinite;
+
+  @keyframes dance {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-5px) rotate(-8deg);
+    }
+    50% {
+      transform: translateY(0) rotate(0deg);
+    }
+    75% {
+      transform: translateY(-3px) rotate(8deg);
+    }
+  }
 }
 
 @layer base {
