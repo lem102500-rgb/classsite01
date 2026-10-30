@@ -24,7 +24,7 @@ export const siteConfig = {
 
   /* 첫 화면(히어로) */
   hero: {
-    eyebrow: "바이브 코딩 클래스",
+    eyebrow: "코딩 클래스, AI 클래스, 디지털 클래스", // 쉼표로 나누면 알약 이름이 여러 개
     title: "호기심 하나로 시작해\n나만의 작품을 완성해요.",
     description: "상상이 눈앞의 결과물이 되는 시간.",
     primaryCta: { label: "수업 알아보기", href: "#about" },

@@ -29,7 +29,7 @@ export async function getItems(section: string): Promise<Item[]> {
 
 /** 관리자 페이지에서 고칠 수 있는 히어로 글자 목록 (key 는 site_texts 표의 key) */
 export const heroTextFields = [
-  { key: "hero.eyebrow", label: "작은 글씨 (제목 위)", fallback: siteConfig.hero.eyebrow, multiline: false },
+  { key: "hero.eyebrow", label: "작은 글씨 (제목 위, 쉼표로 나누면 여러 개)", fallback: siteConfig.hero.eyebrow, multiline: false },
   { key: "hero.title", label: "제목 (엔터로 줄바꿈)", fallback: siteConfig.hero.title, multiline: true },
   { key: "hero.description", label: "설명", fallback: siteConfig.hero.description, multiline: true },
   { key: "hero.primaryCta", label: "첫 번째 버튼 글자", fallback: siteConfig.hero.primaryCta.label, multiline: false },

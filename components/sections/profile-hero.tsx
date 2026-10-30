@@ -27,9 +27,18 @@ export async function ProfileHero() {
       <Container className="grid items-center gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
         {/* 왼쪽: 글자 */}
         <div className="min-w-0">
-          <p className="inline-flex rounded-full bg-muted px-4 py-1.5 text-xs font-medium">
-            {texts["hero.eyebrow"]}
-          </p>
+          {/* 제목 위 알약 이름들 — 쉼표(,)로 나눠 적으면 여러 개로 보임 */}
+          <ul className="flex flex-wrap gap-2">
+            {texts["hero.eyebrow"]
+              .split(/[,·]/)
+              .map((name) => name.trim())
+              .filter(Boolean)
+              .map((name) => (
+                <li key={name} className="rounded-full bg-muted px-4 py-1.5 text-xs font-medium">
+                  {name}
+                </li>
+              ))}
+          </ul>
           <h1 className="mt-6 whitespace-pre-line text-4xl font-bold leading-[1.18] tracking-tight sm:text-5xl lg:text-[3.4rem]">
             {texts["hero.title"]}
           </h1>
