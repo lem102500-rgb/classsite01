@@ -7,6 +7,9 @@ export type Item = {
   description: string | null;
   image_url: string | null;
   link_url: string | null;
+  /** 첨부 자료 파일 주소와 원래 파일 이름 (schema.sql 을 다시 실행하기 전에는 없을 수 있음) */
+  file_url?: string | null;
+  file_name?: string | null;
   /** 작은 숫자가 먼저 보임 */
   sort_order: number;
   /** false 면 사이트에서 숨김 */

@@ -75,7 +75,7 @@ export const siteConfig = {
       "어려운 문법 대신 '무엇을 만들고 싶은지' 말하는 법부터 시작해요. AI와 대화하며 화면이 바뀌는 걸 직접 보는 게 첫 수업이에요.",
       "막히는 곳에서 함께 멈추고, 함께 고칩니다. 수업이 끝나면 모두 자기 이름이 걸린 웹사이트를 갖게 돼요.",
     ],
-    button: { label: "수강생 작업물 보기", href: "#features" },
+    button: { label: "작업물 보기", href: "#features" },
     images: [
       {
         src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&q=80&auto=format&fit=crop",
@@ -91,8 +91,8 @@ export const siteConfig = {
   /* 작업물(항목) 섹션의 제목 — 카드 목록 자체는 관리자 페이지(/admin)에서 관리 */
   features: {
     eyebrow: "Works",
-    title: "수강생 작업물",
-    description: "수업에서 완성한 웹사이트들이에요. 관리자 페이지에서 카드를 추가·수정·삭제할 수 있어요.",
+    title: "작업물",
+    description: "직접 만든 웹사이트와 작업들이에요. 좌우 화살표로 넘겨 보세요.",
   },
 
   /* 연락처 섹션 */
@@ -116,7 +116,7 @@ export const siteConfig = {
      key  = 데이터베이스에 저장되는 이름(영문 소문자),
      label = 관리자 화면에 보이는 이름.
      예) 포트폴리오라면 { key: "works", label: "작업물" } 을 추가 */
-  adminSections: [{ key: "features", label: "기능" }],
+  adminSections: [{ key: "features", label: "작업물" }],
 };
 
 /* Supabase를 아직 연결하지 않았을 때 대신 보여줄 예시 카드.

@@ -10,9 +10,10 @@ export function Contact() {
   const { contact } = siteConfig;
 
   return (
-    <section id="contact" className="scroll-mt-16 py-24">
+    // 연두색 배경 띠 — 페이지 마지막 구역을 확실히 구분
+    <section id="contact" className="scroll-mt-16 bg-brand py-20 text-brand-foreground sm:py-28">
       <Container>
-        <div className="rounded-2xl border bg-muted/50 px-6 py-16 text-center sm:px-12">
+        <div className="text-center [&_p]:text-brand-foreground/70">
           <SectionHeader
             eyebrow={contact.eyebrow}
             title={contact.title}

@@ -8,7 +8,7 @@ export function Partners() {
   const { partners } = siteConfig;
 
   return (
-    <section className="py-12">
+    <section className="border-y bg-card py-12">
       <Container>
         <p className="text-center text-sm text-muted-foreground">{partners.title}</p>
         <ul className="mt-7 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">

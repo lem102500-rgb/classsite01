@@ -12,7 +12,7 @@ export function AboutProfile() {
   const [wide, tall] = about.images;
 
   return (
-    <section id="about" className="scroll-mt-16 py-10">
+    <section id="about" className="scroll-mt-16 bg-muted py-20 sm:py-28">
       <Container>
         <div className="grid gap-4 rounded-[2rem] bg-brand p-4 text-brand-foreground sm:p-6 lg:grid-cols-[1.15fr_1fr_0.7fr]">
           {/* 글 */}

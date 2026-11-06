@@ -6,8 +6,8 @@ import { Container } from "@/components/layout/container";
 /** 맨 아래 영역. 오른쪽 끝의 작은 점(•)이 관리자 페이지로 가는 숨은 버튼입니다. */
 export function Footer() {
   return (
-    <footer className="border-t border-border/60 py-10">
-      <Container className="flex flex-col items-start justify-between gap-4 text-sm text-muted-foreground sm:flex-row sm:items-center">
+    <footer className="border-t bg-card py-12">
+      <Container className="flex flex-col items-start justify-between gap-4 text-sm text-muted-foreground sm:flex-row sm:items-center [&_a:hover]:text-foreground">
         <p>{siteConfig.footer.copyright}</p>
         <div className="flex items-center gap-6">
           {siteConfig.nav.map((item) => (

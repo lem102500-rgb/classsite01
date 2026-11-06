@@ -10,7 +10,7 @@ export function Highlights() {
   const tagPositions = ["left-4 top-4", "right-4 top-1/2", "left-6 bottom-4"];
 
   return (
-    <section id="highlights" className="scroll-mt-16 py-10">
+    <section id="highlights" className="scroll-mt-16 bg-card py-20 sm:py-28">
       <Container className="grid gap-4 lg:grid-cols-[1fr_1.35fr]">
         {/* 검정 카드 */}
         <div className="flex flex-col rounded-[2rem] bg-primary p-6 text-primary-foreground">

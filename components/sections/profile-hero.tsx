@@ -23,7 +23,7 @@ export async function ProfileHero() {
   const tagPositions = ["left-5 top-[18%]", "right-5 top-[42%]", "left-8 bottom-[16%]"];
 
   return (
-    <section id="top" className="pt-6 pb-16 sm:pt-10">
+    <section id="top" className="pt-6 pb-20 sm:pt-10 sm:pb-24">
       <Container className="grid items-center gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
         {/* 왼쪽: 글자 */}
         <div className="min-w-0">

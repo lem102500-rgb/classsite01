@@ -41,7 +41,7 @@ export function ItemForm({ section, item }: { section: string; item?: Item }) {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="grid gap-1.5 text-sm">
-          <span className="font-medium">링크 (선택)</span>
+          <span className="font-medium">링크 URL (선택)</span>
           <input
             name="link_url"
             type="url"
@@ -61,10 +61,26 @@ export function ItemForm({ section, item }: { section: string; item?: Item }) {
         </label>
       </div>
 
-      <label className="grid gap-1.5 text-sm">
-        <span className="font-medium">이미지 (선택, 5MB 이하)</span>
-        <input name="image" type="file" accept="image/*" className="text-sm" />
-      </label>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="grid gap-1.5 text-sm">
+          <span className="font-medium">사진 (선택, 5MB 이하)</span>
+          <span className="text-xs text-muted-foreground">카드 위쪽에 보이는 대표 사진</span>
+          <input name="image" type="file" accept="image/*" className="text-sm" />
+        </label>
+        <label className="grid gap-1.5 text-sm">
+          <span className="font-medium">자료 파일 (선택, 4MB 이하)</span>
+          <span className="text-xs text-muted-foreground">
+            PDF·PPT·워드·엑셀 등 — 사이트의 「바로보기」로 열림
+            {item?.file_name ? ` (지금: ${item.file_name})` : ""}
+          </span>
+          <input
+            name="file"
+            type="file"
+            accept=".pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx,.hwp,.txt,.zip,.png,.jpg,.jpeg"
+            className="text-sm"
+          />
+        </label>
+      </div>
 
       <div className="flex flex-wrap gap-6 text-sm">
         <label className="flex items-center gap-2">
@@ -75,6 +91,12 @@ export function ItemForm({ section, item }: { section: string; item?: Item }) {
           <label className="flex items-center gap-2">
             <input type="checkbox" name="remove_image" />
             기존 이미지 지우기
+          </label>
+        ) : null}
+        {item?.file_url ? (
+          <label className="flex items-center gap-2">
+            <input type="checkbox" name="remove_file" />
+            기존 자료 파일 지우기
           </label>
         ) : null}
       </div>

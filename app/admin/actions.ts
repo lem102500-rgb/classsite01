@@ -17,6 +17,9 @@ import { heroTextFields } from "@/lib/data";
 export type ActionState = { ok?: boolean; message?: string };
 
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5MB
+// 자료 파일: Vercel 에 올린 사이트는 한 번에 약 4.5MB 까지만 받을 수 있어서 4MB 로 제한
+const MAX_FILE_BYTES = 4 * 1024 * 1024;
+const ALLOWED_FILE_EXTS = ["pdf", "ppt", "pptx", "doc", "docx", "xls", "xlsx", "hwp", "txt", "zip", "png", "jpg", "jpeg"];
 
 /* ---------- 로그인 / 로그아웃 ---------- */
 
@@ -83,6 +86,30 @@ export async function saveItem(_prev: ActionState, formData: FormData): Promise<
     row.image_url = null;
   }
 
+  // 자료 파일(PDF, PPT 등)을 올린 경우 → 같은 저장소의 files 폴더에 업로드
+  const file = formData.get("file");
+  if (file instanceof File && file.size > 0) {
+    const ext = (file.name.split(".").pop() || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    if (!ALLOWED_FILE_EXTS.includes(ext)) {
+      return { message: `올릴 수 있는 자료: ${ALLOWED_FILE_EXTS.join(", ")}` };
+    }
+    if (file.size > MAX_FILE_BYTES) {
+      return { message: "자료 파일은 4MB 이하만 올릴 수 있어요. 큰 파일은 구글 드라이브 등에 올리고 '링크'에 주소를 넣어 주세요." };
+    }
+
+    const path = `${section}/files/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+    const { error: uploadError } = await supabase.storage
+      .from(IMAGE_BUCKET)
+      .upload(path, file, { contentType: file.type || "application/octet-stream", upsert: false });
+    if (uploadError) return { message: `자료 업로드 실패: ${uploadError.message}` };
+
+    row.file_url = supabase.storage.from(IMAGE_BUCKET).getPublicUrl(path).data.publicUrl;
+    row.file_name = file.name;
+  } else if (formData.get("remove_file") === "on") {
+    row.file_url = null;
+    row.file_name = null;
+  }
+
   const { error } = id
     ? await supabase.from("items").update(row).eq("id", id)
     : await supabase.from("items").insert(row);
@@ -90,7 +117,7 @@ export async function saveItem(_prev: ActionState, formData: FormData): Promise<
   if (error) return { message: `저장 실패: ${error.message}` };
 
   revalidatePath("/");
-  revalidatePath("/admin");
+  revalidatePath("/admin", "layout");
   return { ok: true, message: id ? "수정했습니다." : "추가했습니다." };
 }
 
@@ -121,7 +148,7 @@ export async function saveHeroTexts(_prev: ActionState, formData: FormData): Pro
   }
 
   revalidatePath("/");
-  revalidatePath("/admin");
+  revalidatePath("/admin", "layout");
   return { ok: true, message: "저장했습니다." };
 }
 
@@ -136,14 +163,19 @@ export async function deleteItem(formData: FormData) {
   const imageUrl = String(formData.get("image_url") ?? "");
   if (!id) return;
 
+  // 첨부 자료 파일 주소는 데이터베이스에서 직접 확인 (지우기 전에)
+  const { data: existing } = await supabase.from("items").select("file_url").eq("id", id).maybeSingle();
+  const fileUrl = String(existing?.file_url ?? "");
+
   await supabase.from("items").delete().eq("id", id);
 
-  // 연결된 이미지 파일도 저장소에서 정리
+  // 연결된 이미지·자료 파일도 저장소에서 정리
   const marker = `/object/public/${IMAGE_BUCKET}/`;
-  if (imageUrl.includes(marker)) {
-    await supabase.storage.from(IMAGE_BUCKET).remove([imageUrl.split(marker)[1]]);
+  const paths = [imageUrl, fileUrl].filter((url) => url.includes(marker)).map((url) => url.split(marker)[1]);
+  if (paths.length > 0) {
+    await supabase.storage.from(IMAGE_BUCKET).remove(paths);
   }
 
   revalidatePath("/");
-  revalidatePath("/admin");
+  revalidatePath("/admin", "layout");
 }
