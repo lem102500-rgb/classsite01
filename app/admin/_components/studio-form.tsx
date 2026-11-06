@@ -16,15 +16,32 @@ export function StudioForm({
   kind,
   fields,
   item,
+  defaults,
+  autoFocus = false,
   submitLabel,
 }: {
   kind: StudioKind;
   fields: StudioField[];
   item?: StudioItem;
+  /** 새로 추가할 때 미리 채워 둘 값 (예: 달력에서 누른 날짜) */
+  defaults?: Partial<Record<StudioField["name"], string>>;
+  /** true 면 화면이 이 입력 칸으로 내려오고, 첫 칸(제목)에 바로 글을 쓸 수 있게 됨 */
+  autoFocus?: boolean;
   submitLabel: string;
 }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(saveStudioItem, {});
   const formRef = useRef<HTMLFormElement>(null);
+
+  // '이 날짜에 일정 추가'를 눌렀을 때: 입력 상자로 부드럽게 이동 + 제목 칸에 커서
+  useEffect(() => {
+    if (!autoFocus) return;
+    const timer = setTimeout(() => {
+      const box = formRef.current?.closest("details") ?? formRef.current;
+      box?.scrollIntoView({ behavior: "smooth", block: "center" });
+      formRef.current?.querySelector<HTMLInputElement>('[name="title"]')?.focus({ preventScroll: true });
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [autoFocus]);
 
   // 새로 추가에 성공하면 입력 칸 비우기
   useEffect(() => {
@@ -38,7 +55,7 @@ export function StudioForm({
 
       <div className="grid gap-4 sm:grid-cols-2">
         {fields.map((field) => {
-          const value = item?.[field.name] ?? "";
+          const value = item ? (item[field.name] ?? "") : (defaults?.[field.name] ?? "");
           const wide = field.type === "textarea" || field.name === "title";
           return (
             <label key={field.name} className={`grid gap-1.5 text-sm ${wide ? "sm:col-span-2" : ""}`}>

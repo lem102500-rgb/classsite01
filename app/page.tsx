@@ -3,7 +3,6 @@ import { Footer } from "@/components/layout/footer";
 import { ProfileHero } from "@/components/sections/profile-hero";
 import { Partners } from "@/components/sections/partners";
 import { AboutProfile } from "@/components/sections/about-profile";
-import { Highlights } from "@/components/sections/highlights";
 import { Features } from "@/components/sections/features";
 import { Contact } from "@/components/sections/contact";
 
@@ -24,7 +23,7 @@ export default function HomePage() {
         <ProfileHero />
         <Partners />
         <AboutProfile />
-        <Highlights />
+        {/* 숫자 카드 섹션은 뺐음 — 다시 넣으려면 <Highlights /> 와 import 를 되돌리기 */}
         <Features />
         <Contact />
       </main>

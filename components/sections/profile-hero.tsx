@@ -42,9 +42,9 @@ export async function ProfileHero() {
           <h1 className="mt-6 whitespace-pre-line text-4xl font-bold leading-[1.18] tracking-tight sm:text-5xl lg:text-[3.4rem]">
             {texts["hero.title"]}
           </h1>
-          {/* 한 줄 부제: 왼쪽 연두 선으로 수채화 붓 자국 느낌 + 한 글자씩 타이핑 */}
+          {/* 한 줄 부제: 왼쪽 연두 선으로 수채화 붓 자국 느낌 + 쓰고 지우기를 계속 반복하는 타이핑 */}
           <p className="mt-7 max-w-md border-l-4 border-brand pl-4 text-lg leading-relaxed text-foreground/70 sm:text-xl">
-            <Typewriter text={texts["hero.description"]} speed={TYPING_SPEED} delay={TYPING_DELAY} keepCursor />
+            <Typewriter text={texts["hero.description"]} speed={TYPING_SPEED} delay={TYPING_DELAY} loop />
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Button asChild variant="brand" size="lg" className="pr-2">

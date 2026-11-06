@@ -1,5 +1,7 @@
 /* 한글 웹폰트 (Pretendard) — 다른 폰트로 바꾸려면 이 줄과 아래 --font-sans 를 바꾸세요 */
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+/* 손글씨 폰트 (나눔손글씨 펜) — 아이디어 노트 포스트잇에 사용 */
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -48,6 +50,13 @@
   --brand: #e3ec8c;
   --brand-foreground: #23211d;
 
+  /* 포스트잇 색 (아이디어 노트) */
+  --note-yellow: #fff3a3;
+  --note-pink: #ffd6de;
+  --note-blue: #cfe8ff;
+  --note-green: #d9f2c4;
+  --note-foreground: #2b2925;
+
   --destructive: #dc2626;
 
   --border: #e6e1d5;
@@ -57,6 +66,7 @@
   /* 폰트 */
   --font-body: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-display: var(--font-body); /* 제목용 폰트를 따로 쓰고 싶으면 여기만 바꾸기 */
+  --font-hand: "Nanum Pen Script", var(--font-body); /* 손글씨 */
 }
 
 /* 다크 모드용 값 (html 태그에 class="dark" 를 붙이면 적용) */
@@ -102,6 +112,12 @@
   --color-destructive: var(--destructive);
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
+  --color-note-yellow: var(--note-yellow);
+  --color-note-pink: var(--note-pink);
+  --color-note-blue: var(--note-blue);
+  --color-note-green: var(--note-green);
+  --color-note-foreground: var(--note-foreground);
+  --font-hand: var(--font-hand);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);

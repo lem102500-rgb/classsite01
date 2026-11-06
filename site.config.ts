@@ -92,7 +92,7 @@ export const siteConfig = {
   features: {
     eyebrow: "Works",
     title: "작업물",
-    description: "직접 만든 웹사이트와 작업들이에요. 좌우 화살표로 넘겨 보세요.",
+    description: "직접 만든 웹사이트와 작업들이에요. 좌우로 넘기고, 카드를 누르면 크게 볼 수 있어요.",
   },
 
   /* 연락처 섹션 */
