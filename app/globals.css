@@ -2,6 +2,8 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
 /* 손글씨 폰트 (나눔손글씨 펜) — 아이디어 노트 포스트잇에 사용 */
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
+/* 클래식 세리프 제목 폰트 (영문 Playfair Display + 한글 나눔명조) — 메인 페이지 제목에 사용 */
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=Playfair+Display:wght@600;700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -67,6 +69,86 @@
   --font-body: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-display: var(--font-body); /* 제목용 폰트를 따로 쓰고 싶으면 여기만 바꾸기 */
   --font-hand: "Nanum Pen Script", var(--font-body); /* 손글씨 */
+  --font-serif: "Playfair Display", "Nanum Myeongjo", Georgia, serif; /* 클래식 세리프 */
+}
+
+/* ==========================================================================
+   ★ 메인 페이지 전용 색 (브라운·크림 레트로) — app/page.tsx 의 class="theme-retro" 안에서만 적용
+   My Studio(관리자)는 위 기본 색을 그대로 씀. 메인을 예전 색으로 되돌리려면 page.tsx 에서 theme-retro 를 빼면 됨
+   ========================================================================== */
+.theme-retro {
+  --radius: 1.5rem;
+
+  --background: #4b301c; /* 초콜릿 브라운 바탕 */
+  --foreground: #f3e7cc; /* 바탕 위 크림색 글씨 */
+
+  --card: #efe2c4; /* 크림 타일 */
+  --card-foreground: #3a2313;
+  --popover: #efe2c4;
+  --popover-foreground: #3a2313;
+
+  --primary: #3a2313; /* 진한 갈색 (버튼, 진한 타일) */
+  --primary-foreground: #f3e7cc;
+
+  --secondary: #e3d1aa;
+  --secondary-foreground: #3a2313;
+
+  --muted: #e3d1aa; /* 타일 안의 한 톤 진한 칸 */
+  --muted-foreground: #7b5a3c;
+
+  --accent: #e3d1aa;
+  --accent-foreground: #3a2313;
+
+  --brand: #c8995c; /* 캐러멜 강조색 */
+  --brand-foreground: #2a170a;
+
+  --border: #d4bf94;
+  --input: #d4bf94;
+  --ring: #a07c52;
+}
+
+/* ==========================================================================
+   ★ 메인 페이지 전용 색 (Blush: 노을 하늘 + 크림 종이 + 분홍·보라·초록) — app/page.tsx 의 class="theme-blush"
+   ========================================================================== */
+.theme-blush {
+  --radius: 1.25rem;
+
+  --background: #f4ede3; /* 크림 종이 바탕 */
+  --foreground: #2d2a3a;
+
+  --card: #fffaf2; /* 폴라로이드 흰 종이 */
+  --card-foreground: #2d2a3a;
+  --popover: #fffaf2;
+  --popover-foreground: #2d2a3a;
+
+  --primary: #2d2a3a;
+  --primary-foreground: #ffffff;
+
+  --secondary: #ece3d6;
+  --secondary-foreground: #2d2a3a;
+
+  --muted: #ece3d6;
+  --muted-foreground: #6e6878;
+
+  --accent: #ece3d6;
+  --accent-foreground: #2d2a3a;
+
+  --brand: #f4a9bb; /* 블러시 분홍 */
+  --brand-foreground: #2d2a3a;
+
+  --border: #e3d8c8;
+  --input: #e3d8c8;
+  --ring: #b9a9c9;
+}
+
+/* Blush 전용 추가 색 (하늘 그라데이션, 3색 푸터) — 어느 페이지에서나 클래스로 쓸 수 있음 */
+:root {
+  --sky-top: #27345c; /* 밤하늘 남색 */
+  --sky-mid: #6f76a8; /* 보랏빛 하늘 */
+  --sky-bottom: #f3b7c2; /* 분홍 노을 */
+  --foot-pink: #ec97ab;
+  --foot-purple: #a78fd8;
+  --foot-green: #74b394;
 }
 
 /* 다크 모드용 값 (html 태그에 class="dark" 를 붙이면 적용) */
@@ -118,6 +200,13 @@
   --color-note-green: var(--note-green);
   --color-note-foreground: var(--note-foreground);
   --font-hand: var(--font-hand);
+  --font-serif: var(--font-serif);
+  --color-sky-top: var(--sky-top);
+  --color-sky-mid: var(--sky-mid);
+  --color-sky-bottom: var(--sky-bottom);
+  --color-foot-pink: var(--foot-pink);
+  --color-foot-purple: var(--foot-purple);
+  --color-foot-green: var(--foot-green);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -135,6 +224,17 @@
 @theme {
   --animate-dance: dance 1.2s ease-in-out infinite;
   --animate-blink: blink 1s step-end infinite;
+  --animate-float: float 4s ease-in-out infinite; /* 둥실둥실 (Blush 캐릭터, 구름) */
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
 
   @keyframes blink {
     50% {

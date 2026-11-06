@@ -6,10 +6,13 @@ import { AboutProfile } from "@/components/sections/about-profile";
 import { Features } from "@/components/sections/features";
 import { Contact } from "@/components/sections/contact";
 
-/* 메인 페이지 = 섹션 블록을 위에서 아래로 쌓아 놓은 것.
-   - 섹션 순서 바꾸기: 아래 줄의 순서를 바꾸면 됩니다.
-   - 섹션 빼기: 해당 줄을 지우면 됩니다.
-   - 새 섹션 추가: components/sections 에 파일을 만들고 여기에 한 줄 추가. */
+/* 메인 페이지 = 따뜻한 종이색 + 수채화 강사 일러스트 디자인 (섹션 블록을 위에서 아래로 쌓음)
+   - 섹션 순서 바꾸기: 아래 줄의 순서를 바꾸면 됩니다. / 섹션 빼기: 해당 줄을 지우면 됩니다.
+   다른 디자인 (파일은 모두 남아 있음):
+   - Blush(노을 하늘):  <div className="theme-blush …"> <Navbar overlay /> <BlushHero /> <BlushCards /> <Features /> <BlushFooter />
+                        (components/sections/blush-home.tsx)
+   - 브라운 타일(벤토): <div className="theme-retro …"> <Navbar /> <BentoHome /> <Footer />
+                        (components/sections/bento-home.tsx) */
 
 // 관리자 페이지에서 내용을 바꾸면 최대 60초 안에 반영 (저장 즉시 반영도 되어 있음)
 export const revalidate = 60;
@@ -19,11 +22,9 @@ export default function HomePage() {
     <>
       <Navbar />
       <main className="flex-1">
-        {/* 예전 디자인으로 돌아가려면: <Hero /> <About /> 로 바꾸고 위 import 도 되돌리기 */}
         <ProfileHero />
         <Partners />
         <AboutProfile />
-        {/* 숫자 카드 섹션은 뺐음 — 다시 넣으려면 <Highlights /> 와 import 를 되돌리기 */}
         <Features />
         <Contact />
       </main>

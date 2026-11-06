@@ -29,6 +29,8 @@ export const siteConfig = {
     description: "상상이 눈앞의 결과물이 되는 시간.",
     primaryCta: { label: "수업 알아보기", href: "#about" },
     secondaryCta: { label: "문의하기", href: "#contact" },
+    /* 메인 프로필 카드의 이름 아래 한 줄 소개 */
+    profileLine: "바이브 코딩 강사 · 코딩·AI·디지털 수업",
     /* 오른쪽 일러스트와 그 위 알약 모양 태그 (그림은 public 폴더에 넣고 "/파일이름.png" 로 바꾸면 됨) */
     image: {
       // 종이 배경을 투명하게 만든 그림 (원본: "/hero-portrait.png", 예전 그림: "/hero-illustration.png" 470×536)
@@ -38,6 +40,53 @@ export const siteConfig = {
       height: 485,
     },
     tags: [] as string[], // 사진 위 태그 — 다시 넣으려면 예) ["Teacher", "Vibe Coder"]
+  },
+
+  /* Blush 메인 페이지 (노을 하늘 첫 화면 + 폴라로이드 카드) */
+  blush: {
+    // 첫 화면 입력창: 적고 → 를 누르면 이 내용이 제목인 이메일 쓰기 창이 열림
+    inputPlaceholder: "만들고 싶은 것을 적어 보세요…",
+    // 노을 하늘 아래쪽 강사 일러스트 (어두운 하늘에서도 깔끔하게 보이도록 배경을 한 번 더 지운 그림)
+    image: {
+      src: "/hero-portrait-sky.png",
+      alt: "노트북 앞에서 웃으며 설명하는 강사 일러스트",
+      width: 453,
+      height: 485,
+    },
+    cards: [
+      {
+        title: "생각을 정리해요",
+        text: "만들고 싶은 화면을 말로 설명하는 것부터 시작해요.",
+        image: {
+          src: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&q=80&auto=format&fit=crop",
+          alt: "코드가 띄워진 노트북과 노란 컵",
+        },
+      },
+      {
+        title: "함께 만들어요",
+        text: "AI와 대화하며 화면이 바뀌는 순간을 같이 봐요.",
+        image: {
+          src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80&auto=format&fit=crop",
+          alt: "노트북을 펴 놓고 웃으며 이야기하는 수강생들",
+        },
+      },
+      {
+        title: "나답게 꾸며요",
+        text: "색, 글꼴, 사진까지 나만의 분위기로 바꿔요.",
+        image: {
+          src: "https://images.unsplash.com/photo-1511994298241-608e28f14fde?w=600&q=80&auto=format&fit=crop",
+          alt: "노을 진 언덕 위에 세워 둔 자전거",
+        },
+      },
+      {
+        title: "세상에 보여줘요",
+        text: "완성한 사이트를 인터넷에 올리고 함께 축하해요.",
+        image: {
+          src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80&auto=format&fit=crop",
+          alt: "강의실에서 화면을 보며 수업을 듣는 사람들",
+        },
+      },
+    ],
   },
 
   /* 히어로 아래 '함께한 곳' 이름 줄 */

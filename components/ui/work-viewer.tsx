@@ -214,12 +214,12 @@ export function WorkCard(props: WorkCardProps) {
       <div className="relative aspect-[4/3] bg-brand/35">
         <Thumbnail {...props} />
         {badge ? (
-          <span className="absolute top-3 left-3 rounded-full bg-background/90 px-2.5 py-0.5 text-xs font-medium shadow-sm">
+          <span className="absolute top-3 left-3 rounded-full bg-card/95 px-2.5 py-0.5 text-xs font-medium text-card-foreground shadow-sm">
             {badge}
           </span>
         ) : null}
         {current ? (
-          <span className="absolute top-3 right-3 inline-flex size-8 items-center justify-center rounded-full bg-background/90 opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
+          <span className="absolute top-3 right-3 inline-flex size-8 items-center justify-center rounded-full bg-card/95 text-card-foreground opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
             <Maximize2 className="size-4" />
           </span>
         ) : null}
